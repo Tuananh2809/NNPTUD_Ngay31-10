@@ -10,26 +10,6 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-const User = require('./schemas/users');
-const Role = require('./schemas/roles');
-
-app.get('/tao-data', async (req, res) => {
-  try {
-    let role = await Role.findOne();
-    if (!role) role = await Role.create({ name: 'user' });
-
-    let u1 = new User({ username: 'usera', password: '123UserA', email: 'a@gmail.com', role: role._id, status: true });
-    let u2 = new User({ username: 'userb', password: '123UserB', email: 'b@gmail.com', role: role._id, status: true });
-    let u3 = new User({ username: 'userc', password: '123UserC', email: 'c@gmail.com', role: role._id, status: true });
-
-    await u1.save(); await u2.save(); await u3.save();
-    res.json({ User_A: u1._id, User_B: u2._id, User_C: u3._id });
-  } catch (e) {
-    res.send("Có lỗi: " + e.message);
-  }
-});
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
