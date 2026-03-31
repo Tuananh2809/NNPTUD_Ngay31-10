@@ -5,6 +5,9 @@ let userModel = require("../schemas/users");
 let userController = require('../controllers/users')
 let { CheckLogin, CheckRole } = require('../utils/authHandler')
 
+const User = require('../schemas/users');
+const Role = require('../schemas/roles');
+
 
 router.get("/", CheckLogin, CheckRole("ADMIN", "MODERATOR"), async function (req, res, next) {
   let users = await userModel
